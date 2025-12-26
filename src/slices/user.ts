@@ -1,19 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { RootState } from '../services/store';
-import { registerUserApi, TRegisterData } from '@api';
+import { getUserApi, registerUserApi, TRegisterData } from '@api';
 import { setCookie } from '../utils/cookie';
 
 export type UserState = {
-  // request: boolean;
-  // error: string | null;
-  // response: TUser | null;
-  // registerData: TRegisterData | null;
+
   user: TUser | null;
-  // userOrders: TOrder[];
-  // isAuthChecked: boolean;
   isAuthenticated: boolean;
-  // loginUserRequest: boolean;
 };
 
 export const initialState: UserState = {
@@ -34,6 +28,21 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const fetchUser = createAsyncThunk(
+  'user/fetch',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await getUserApi();
+      if (!response?.success) {
+        return rejectWithValue(response);
+      }
+      return response.user;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -47,13 +56,21 @@ export const userSlice = createSlice({
     builder.addCase(registerUser.pending, (state) => {
       state.isAuthenticated = false;
     });
-    builder.addCase(registerUser.rejected, (state, action) => {
+    builder.addCase(registerUser.rejected, (state) => {
       state.isAuthenticated = false;
-      // state.error = action.error.message as string;
-      console.log(action.error);
     });
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.user = action.payload.user;
+      state.isAuthenticated = true;
+    });
+    builder.addCase(fetchUser.pending, (state) => {
+      state.isAuthenticated = false;
+    });
+    builder.addCase(fetchUser.rejected, (state) => {
+      state.isAuthenticated = false;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.user = action.payload;
       state.isAuthenticated = true;
     });
   }
