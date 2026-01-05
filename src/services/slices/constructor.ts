@@ -49,7 +49,7 @@ export const constructorSlice = createSlice({
   name: 'constructor',
   initialState,
   reducers: {
-    addIngredientToConstructor: {
+    addIngredient: {
       prepare: (item: TIngredient) => {
         const id = nanoid();
         return { payload: { id, ...item } };
@@ -140,7 +140,7 @@ export const getOrderModalData = (state: RootState) =>
   state.constructorItems.orderModalData;
 
 export const {
-  addIngredientToConstructor,
+  addIngredient,
   removeIngredientFromConstructor,
   moveIngredientUp,
   moveIngredientDown,
