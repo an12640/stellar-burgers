@@ -63,14 +63,14 @@ export const constructorSlice = createSlice({
       }
     },
 
-    removeIngredientFromConstructor: (state, action: PayloadAction<string>) => {
+    deleteIngredient: (state, action: PayloadAction<string>) => {
       state.constructorItems.ingredients =
         state.constructorItems.ingredients.filter(
           (item) => item.id !== action.payload
         );
     },
 
-    moveIngredientUp: (state, action: PayloadAction<string>) => {
+    moveUpIngredient: (state, action: PayloadAction<string>) => {
       const index = state.constructorItems.ingredients.findIndex(
         (item) => item.id === action.payload
       );
@@ -79,7 +79,7 @@ export const constructorSlice = createSlice({
       }
     },
 
-    moveIngredientDown: (state, action: PayloadAction<string>) => {
+    moveDownIngredient: (state, action: PayloadAction<string>) => {
       const index = state.constructorItems.ingredients.findIndex(
         (item) => item.id === action.payload
       );
@@ -141,9 +141,9 @@ export const getOrderModalData = (state: RootState) =>
 
 export const {
   addIngredient,
-  removeIngredientFromConstructor,
-  moveIngredientUp,
-  moveIngredientDown,
+  deleteIngredient,
+  moveUpIngredient,
+  moveDownIngredient,
   resetConstructor,
   setRequest,
   resetModal
