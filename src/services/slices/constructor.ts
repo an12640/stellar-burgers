@@ -31,7 +31,7 @@ export const initialState: ConstructorState = {
   error: null
 };
 
-export const getOrderBurger = createAsyncThunk(
+export const makeOrder = createAsyncThunk(
   'user/newUserOrder',
   async (data: string[]) => await orderBurgerApi(data)
 );
@@ -92,29 +92,36 @@ export const constructorSlice = createSlice({
       state.constructorItems.ingredients = [];
       state.constructorItems.bun = null;
     },
-    setRequest: (state, action) => {
-      state.orderRequest = action.payload;
+    clearRequest: (state) => {
+      state.orderRequest = false;
+      state.constructorItems = {
+        bun: null,
+        ingredients: []
+      };
     },
-    resetModal: (state) => {
+    clearOrderModal: (state) => {
       state.orderModalData = null;
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getOrderBurger.pending, (state) => {
-      state.loading = true;
-      state.error = null;
+    builder.addCase(makeOrder.pending, (state) => {
+      // state.loading = true;
+      // state.error = null;
       state.orderRequest = true;
     });
-    builder.addCase(getOrderBurger.rejected, (state, action) => {
-      state.loading = false;
+    builder.addCase(makeOrder.rejected, (state, action) => {
+      // state.loading = false;
       state.orderRequest = false;
-      state.error = action.error.message as string;
+      // state.error = action.error.message as string;
     });
-    builder.addCase(getOrderBurger.fulfilled, (state, action) => {
-      state.loading = false;
-      state.orderRequest = false;
-      state.error = null;
-      state.orderModalData = action.payload.order;
+    builder.addCase(makeOrder.fulfilled, (state, action) => {
+      // state.loading = false;
+      if (state.orderRequest)
+      {
+        state.orderRequest = false;
+        state.orderModalData = action.payload.order;
+      }
+      // state.error = null;
       state.constructorItems = {
         bun: null,
         ingredients: []
@@ -145,8 +152,8 @@ export const {
   moveUpIngredient,
   moveDownIngredient,
   resetConstructor,
-  setRequest,
-  resetModal
+  clearOrderModal,
+  clearRequest
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;
