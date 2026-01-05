@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { getUserState } from "../../slices/user";
+import { getUserState } from "@slices";
 
 export enum AccessMode {
   AuthenticatedOnly,

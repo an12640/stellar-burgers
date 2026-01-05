@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { RootState } from '../services/store';
+import { RootState } from '../store';
 import { getUserApi, registerUserApi, TRegisterData } from '@api';
-import { setCookie } from '../utils/cookie';
+import { setCookie } from '../../utils/cookie';
 
 export type UserState = {
-
   user: TUser | null;
   isAuthenticated: boolean;
 };
 
-export const initialState: UserState = {
+const initialState: UserState = {
   user: null,
   isAuthenticated: false
 };

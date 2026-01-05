@@ -16,16 +16,18 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AccessMode, ProtectedRoute } from '../protected-route/protected-route';
 import { useEffect } from 'react';
-import { fetchUser } from '../../slices/user';
 import { useDispatch } from '../../services/store';
+import { fetchUser, fetchIngredients } from '@slices';
 
 const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const background = location.state?.background;
 
+
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchIngredients());
   }, [dispatch]);
   
   return (
