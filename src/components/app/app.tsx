@@ -13,7 +13,7 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { AccessMode, ProtectedRoute } from '../protected-route/protected-route';
 import { useEffect } from 'react';
 import { fetchUser, fetchIngredients } from '@slices';
@@ -22,6 +22,7 @@ import { useDispatch } from '@store';
 const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const background = location.state?.background;
 
 
@@ -68,7 +69,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='' onClose={() => {}}>
+              <Modal title='' onClose={() => navigate(-1)}>
                 <IngredientDetails />
               </Modal>
             }
