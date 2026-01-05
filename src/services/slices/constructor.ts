@@ -6,8 +6,8 @@ import {
   PayloadAction
 } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
-import { RootState } from '../store';
 import { orderBurgerApi } from '@api';
+import { RootState } from '@store';
 
 type ConstructorState = {
   constructorItems: {

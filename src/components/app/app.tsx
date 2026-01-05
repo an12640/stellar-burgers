@@ -16,8 +16,8 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AccessMode, ProtectedRoute } from '../protected-route/protected-route';
 import { useEffect } from 'react';
-import { useDispatch } from '../../services/store';
 import { fetchUser, fetchIngredients } from '@slices';
+import { useDispatch } from '@store';
 
 const App = () => {
   const location = useLocation();
@@ -50,8 +50,8 @@ const App = () => {
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile'>
-          <Route index element={<Profile />} />
-          <Route path='orders' element={<ProfileOrders />} />
+            <Route index element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path='orders' element={<ProtectedRoute><ProfileOrders /></ProtectedRoute>} />
         </Route>
       </Routes>
 

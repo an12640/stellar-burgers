@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { RootState } from '../store';
-import { getUserApi, registerUserApi, TRegisterData } from '@api';
-import { setCookie } from '../../utils/cookie';
+import { RootState } from '../store/store';
+import { getUserApi, loginUserApi, logoutApi, registerUserApi, TLoginData, TRegisterData } from '@api';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export type UserState = {
   user: TUser | null;
@@ -42,14 +42,31 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
+export const loginUser = createAsyncThunk(
+  'user/login',
+  async ({email, password}: TLoginData) => {
+    const response = await loginUserApi({email, password});
+    if (response.success) {
+      setCookie('accessToken', response.accessToken);
+      localStorage.setItem('refreshToken', response.refreshToken);
+    }
+    return response;
+  }
+);
+
+export const logoutUser = createAsyncThunk(
+  'user/logout',
+  async () => {
+    await logoutApi();
+    localStorage.removeItem('refreshToken');
+    deleteCookie('accessToken');
+  }
+);
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    userLogout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-    }
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state) => {
@@ -72,10 +89,30 @@ export const userSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     });
+    builder.addCase(logoutUser.pending, (state) => {
+      state.isAuthenticated = false;
+    });
+    builder.addCase(logoutUser.rejected, (state) => {
+      state.isAuthenticated = true;
+    });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    });
+     builder.addCase(loginUser.pending, (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    });
+    builder.addCase(loginUser.rejected, (state) => {
+      state.user = null;
+      state.isAuthenticated = false;
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+      state.isAuthenticated = true;
+    });
   }
 });
-
-export const { userLogout } = userSlice.actions;
 
 export const getUserState = (state: RootState): UserState => state.user;
 
