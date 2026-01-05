@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { RootState } from '../store/store';
-import { getUserApi, loginUserApi, logoutApi, registerUserApi, TLoginData, TRegisterData } from '@api';
+import { getUserApi, loginUserApi, logoutApi, registerUserApi, TLoginData, TRegisterData, updateUserApi } from '@api';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export type UserState = {
@@ -25,6 +25,11 @@ export const registerUser = createAsyncThunk(
     localStorage.setItem('refreshToken', data.refreshToken);
     return data;
   }
+);
+
+export const updateUser = createAsyncThunk(
+  'user/update',
+  updateUserApi
 );
 
 export const fetchUser = createAsyncThunk(
@@ -99,7 +104,7 @@ export const userSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     });
-     builder.addCase(loginUser.pending, (state) => {
+    builder.addCase(loginUser.pending, (state) => {
       state.user = null;
       state.isAuthenticated = false;
     });
@@ -110,6 +115,9 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload.user;
       state.isAuthenticated = true;
+    });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
     });
   }
 });
