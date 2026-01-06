@@ -35,9 +35,11 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
       <Routes location={background || location}>
-        <Route path='*' element={<NotFound404 />} />
         <Route path='/' element={<ConstructorPage />} />
-        <Route path='/feed' element={<Feed />} />
+        <Route path='/feed'>
+          <Route index element={<Feed />} />
+          <Route path=':number' element={<OrderInfo />} />
+        </Route>
         <Route path='/login' element={
           <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
             <Login />
@@ -53,7 +55,9 @@ const App = () => {
         <Route path='/profile'>
             <Route index element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path='orders' element={<ProtectedRoute><ProfileOrders /></ProtectedRoute>} />
+            <Route path='orders/:number' element={<ProtectedRoute><OrderInfo /></ProtectedRoute>}/>
         </Route>
+        <Route path='*' element={<NotFound404 />} />
       </Routes>
 
       {background && (
@@ -69,7 +73,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='' onClose={() => navigate(-1)}>
+              <Modal title='Детали ингредиента' onClose={() => navigate(-1)}>
                 <IngredientDetails />
               </Modal>
             }
@@ -77,7 +81,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='' onClose={() => {navigate(-1)}}>
+              <Modal title='Детали заказа' onClose={() => {navigate(-1)}}>
                 <OrderInfo />
               </Modal>
             }
