@@ -1,4 +1,4 @@
-import { getOrders, ordersSelector } from '@slices';
+import { getFeeds, getOrders, ordersSelector } from '@slices';
 import { useDispatch, useSelector } from '@store';
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
@@ -11,7 +11,7 @@ export const Feed: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrders());
+    dispatch(getFeeds());
   }, []);
   
   if (!orders.length) {
