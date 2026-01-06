@@ -50,8 +50,14 @@ const App = () => {
             <Register />
           </ProtectedRoute>
           } />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/forgot-password' element={
+          <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
+            <ForgotPassword />
+          </ProtectedRoute>} />
+        <Route path='/reset-password' element={
+          <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
+            <ResetPassword />
+          </ProtectedRoute>} />
         <Route path='/profile'>
             <Route index element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path='orders' element={<ProtectedRoute><ProfileOrders /></ProtectedRoute>} />
@@ -81,9 +87,11 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='Детали заказа' onClose={() => {navigate(-1)}}>
+              <ProtectedRoute>
+                <Modal title='Детали заказа' onClose={() => {navigate(-1)}}>
                 <OrderInfo />
-              </Modal>
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>
