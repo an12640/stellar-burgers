@@ -20,7 +20,7 @@ type ConstructorState = {
   error: string | null;
 };
 
-export const initialState: ConstructorState = {
+const initialState: ConstructorState = {
   constructorItems: {
     bun: null,
     ingredients: []
