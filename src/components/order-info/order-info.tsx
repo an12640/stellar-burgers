@@ -7,22 +7,20 @@ import { getIngredientState, getOrderByNumber, ordersSelector } from '@slices';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
-
   const dispatch = useDispatch();
-  const params = useParams<{number: string}>();
+  const params = useParams<{ number: string }>();
 
-  useEffect(
-    () => {
-      if (!params.number) return;
+  useEffect(() => {
+    if (!params.number) return;
 
-      const num = Number(params.number);
-      if (!Number.isNaN(num)) {
-        dispatch(getOrderByNumber(num));
-      }
-    }, []
-  );
+    const num = Number(params.number);
+    if (!Number.isNaN(num)) {
+      dispatch(getOrderByNumber(num));
+    }
+  }, []);
   const orderData = useSelector(ordersSelector).currentOrder;
-  const ingredients: TIngredient[] = useSelector(getIngredientState).ingredients;
+  const ingredients: TIngredient[] =
+    useSelector(getIngredientState).ingredients;
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {

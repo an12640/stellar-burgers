@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';import { ProfileMenuUI } from '@ui';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ProfileMenuUI } from '@ui';
 import { logoutUser } from '@slices';
 import { useDispatch } from '@store';
 

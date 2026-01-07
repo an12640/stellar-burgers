@@ -7,9 +7,11 @@ import { Params, useParams } from 'react-router-dom';
 
 export const IngredientDetails: FC = () => {
   const ingredients = useSelector(getIngredientState).ingredients;
-  const params = useParams<{id: string}>();
-  const ingredientData = ingredients.find(ingredient => ingredient._id === params.id!);
-  
+  const params = useParams<{ id: string }>();
+  const ingredientData = ingredients.find(
+    (ingredient) => ingredient._id === params.id!
+  );
+
   if (!ingredientData) {
     return <Preloader />;
   }

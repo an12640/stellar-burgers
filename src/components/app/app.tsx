@@ -25,12 +25,11 @@ const App = () => {
   const navigate = useNavigate();
   const background = location.state?.background;
 
-
   useEffect(() => {
     dispatch(fetchUser());
     dispatch(fetchIngredients());
   }, [dispatch]);
-  
+
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -40,28 +39,63 @@ const App = () => {
           <Route index element={<Feed />} />
           <Route path=':number' element={<OrderInfo />} />
         </Route>
-        <Route path='/login' element={
-          <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
-            <Login />
-          </ProtectedRoute>
-          } />
-        <Route path='/register' element={
-          <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
-            <Register />
-          </ProtectedRoute>
-          } />
-        <Route path='/forgot-password' element={
-          <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
-            <ForgotPassword />
-          </ProtectedRoute>} />
-        <Route path='/reset-password' element={
-          <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
-            <ResetPassword />
-          </ProtectedRoute>} />
+        <Route
+          path='/login'
+          element={
+            <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
+              <Login />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/register'
+          element={
+            <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
+              <Register />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/forgot-password'
+          element={
+            <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
+              <ForgotPassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/reset-password'
+          element={
+            <ProtectedRoute accessMode={AccessMode.UnauthenticatedOnly}>
+              <ResetPassword />
+            </ProtectedRoute>
+          }
+        />
         <Route path='/profile'>
-            <Route index element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path='orders' element={<ProtectedRoute><ProfileOrders /></ProtectedRoute>} />
-            <Route path='orders/:number' element={<ProtectedRoute><OrderInfo /></ProtectedRoute>}/>
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='orders'
+            element={
+              <ProtectedRoute>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='orders/:number'
+            element={
+              <ProtectedRoute>
+                <OrderInfo />
+              </ProtectedRoute>
+            }
+          />
         </Route>
         <Route path='*' element={<NotFound404 />} />
       </Routes>
@@ -71,7 +105,12 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Детали заказа' onClose={() => {navigate(-1)}}>
+              <Modal
+                title='Детали заказа'
+                onClose={() => {
+                  navigate(-1);
+                }}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -88,8 +127,13 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='Детали заказа' onClose={() => {navigate(-1)}}>
-                <OrderInfo />
+                <Modal
+                  title='Детали заказа'
+                  onClose={() => {
+                    navigate(-1);
+                  }}
+                >
+                  <OrderInfo />
                 </Modal>
               </ProtectedRoute>
             }

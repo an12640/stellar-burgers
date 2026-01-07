@@ -1,7 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { RootState } from '../store/store';
-import { getUserApi, loginUserApi, logoutApi, registerUserApi, TLoginData, TRegisterData, updateUserApi } from '@api';
+import {
+  getUserApi,
+  loginUserApi,
+  logoutApi,
+  registerUserApi,
+  TLoginData,
+  TRegisterData,
+  updateUserApi
+} from '@api';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export type UserState = {
@@ -27,10 +35,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const updateUser = createAsyncThunk(
-  'user/update',
-  updateUserApi
-);
+export const updateUser = createAsyncThunk('user/update', updateUserApi);
 
 export const fetchUser = createAsyncThunk(
   'user/fetch',
@@ -49,8 +54,8 @@ export const fetchUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'user/login',
-  async ({email, password}: TLoginData) => {
-    const response = await loginUserApi({email, password});
+  async ({ email, password }: TLoginData) => {
+    const response = await loginUserApi({ email, password });
     if (response.success) {
       setCookie('accessToken', response.accessToken);
       localStorage.setItem('refreshToken', response.refreshToken);
@@ -59,20 +64,16 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk(
-  'user/logout',
-  async () => {
-    await logoutApi();
-    localStorage.removeItem('refreshToken');
-    deleteCookie('accessToken');
-  }
-);
+export const logoutUser = createAsyncThunk('user/logout', async () => {
+  await logoutApi();
+  localStorage.removeItem('refreshToken');
+  deleteCookie('accessToken');
+});
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(registerUser.pending, (state) => {
       state.isAuthenticated = false;

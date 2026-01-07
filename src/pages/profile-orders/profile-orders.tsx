@@ -6,7 +6,7 @@ import { FC, useEffect } from 'react';
 
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(getOrders());
   }, []);

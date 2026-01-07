@@ -116,8 +116,7 @@ export const constructorSlice = createSlice({
     });
     builder.addCase(makeOrder.fulfilled, (state, action) => {
       // state.loading = false;
-      if (state.orderRequest)
-      {
+      if (state.orderRequest) {
         state.orderRequest = false;
         state.orderModalData = action.payload.order;
       }

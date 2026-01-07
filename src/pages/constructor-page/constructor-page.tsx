@@ -1,4 +1,3 @@
-
 import styles from './constructor-page.module.css';
 
 import { BurgerIngredients } from '../../components';
@@ -9,7 +8,8 @@ import { getIngredientState } from '@slices';
 import { useSelector } from '@store';
 
 export const ConstructorPage: FC = () => {
-  const isIngredientsLoading = useSelector(getIngredientState).isIngredientsLoading;
+  const isIngredientsLoading =
+    useSelector(getIngredientState).isIngredientsLoading;
   return (
     <>
       {isIngredientsLoading ? (
