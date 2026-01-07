@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { getIngredientState } from '@slices';
-import { useSelector } from 'react-redux';
+import { useSelector } from '@store';
 
 export const BurgerIngredients: FC = () => {
   const { ingredients, isIngredientsLoading } = useSelector(getIngredientState);
