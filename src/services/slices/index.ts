@@ -2,6 +2,6 @@ export * from './ingredient';
 
 export * from './user';
 
-export * from './constructor';
+export * from './constructor/constructor';
 
 export * from './order';
