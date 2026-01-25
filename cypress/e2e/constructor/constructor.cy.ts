@@ -10,10 +10,8 @@ const submitOrderButton = '[data-cy="submit-order-button"]';
 const orderNumber = '[data-cy="order-number"]';
 
 beforeEach(() => {
-  cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' }).as(
-    'getIngredients'
-  );
-  cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' });
+  cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' }).as('getIngredients');
+  cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' }).as('fetchUser');
   cy.intercept('POST', 'api/auth/login', { fixture: 'login.json' });
   cy.intercept('POST', 'api/auth/token', { fixture: 'login.json' });
   cy.intercept('POST', 'api/orders', { fixture: 'order.json' });
@@ -25,6 +23,7 @@ beforeEach(() => {
 
   cy.visit('/'); 
   cy.wait('@getIngredients');
+  cy.wait('@fetchUser');
 });
 
 afterEach(() => {
