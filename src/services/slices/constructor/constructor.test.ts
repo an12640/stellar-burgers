@@ -97,6 +97,12 @@ describe('Тесты редьюсеров слайса конструктора'
     expect(nextState.constructorItems.bun).toMatchObject(bun);
   });
 
+  test('Удаление ингредиента из пустого конструктора', () => {
+    const nextState = reducer(initialState, deleteIngredient('id2'));
+    expect(nextState.constructorItems.ingredients).toHaveLength(0);
+    expect(nextState.constructorItems.bun).toBeNull();
+  });
+
   test('Изменение порядка ингредиентов в начинке', () => {
     const nextState = reducer(stateWithIngredients, moveUpIngredient('id3'));
     expect(nextState.constructorItems.ingredients.map(i => i.id))
