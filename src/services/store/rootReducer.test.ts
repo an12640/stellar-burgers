@@ -19,4 +19,3 @@ describe('Тестирование rootReducer', () => {
     );
   })
 });
-
