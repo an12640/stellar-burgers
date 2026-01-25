@@ -61,7 +61,6 @@ describe('Тесты редьюсеров слайса ингредиентов'
     expect(nextState.isIngredientsLoading).toBe(false);
   });
 
-
   test('Успешная загрузка ингредиентов' , () => {
     const testIngredients = [bun, mainIngredient, sauceIngredient];
     const nextState = ingredientSlice.reducer(initialState, fetchIngredients.fulfilled(testIngredients, 'fulfilled'));
