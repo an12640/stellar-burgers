@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@store';
 import { TOrder } from '@utils-types';
 
-type OrderState = {
+export type OrderState = {
   orders: TOrder[];
   total: number;
   totalToday: number;

@@ -96,6 +96,7 @@ const config: JestConfigWithTsJest = {
     '^@api$': '<rootDir>/src/utils/burger-api.ts',
     '^@utils-types$': '<rootDir>/src/utils/types',
     '^@store$': '<rootDir>/src/services/store',
+    '^@slices$': '<rootDir>/src/services/slices',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

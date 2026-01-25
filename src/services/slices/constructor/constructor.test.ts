@@ -12,7 +12,8 @@ describe('Тесты редьюсеров слайса конструктора'
     loading: false,
     error: null
   };
-   const bun: TIngredient = {
+
+  const bun: TIngredient = {
     _id: '643d69a5c3f7b9001cfa093c',
     name: 'Краторная булка N-200igogo',
     type: 'bun',
@@ -25,7 +26,8 @@ describe('Тесты редьюсеров слайса конструктора'
     image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
     image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png'
   };
-  const mainIngredient = {
+
+  const mainIngredient: TIngredient = {
     _id: '643d69a5c3f7b9001cfa0941',
     name: 'Биокотлета из марсианской Магнолии',
     type: 'main',
@@ -39,7 +41,7 @@ describe('Тесты редьюсеров слайса конструктора'
     image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png'
   };
 
-  const sauceIngredient = {
+  const sauceIngredient: TIngredient = {
     _id: '643d69a5c3f7b9001cfa0942',
     name: 'Соус Spicy-X',
     type: 'sauce',
