@@ -1,7 +1,7 @@
-export * from './ingredient';
+export * from './ingredient/ingredient';
 
-export * from './user';
+export * from './user/user';
 
-export * from './constructor';
+export * from './constructor/constructor';
 
-export * from './order';
+export * from './order/order';
