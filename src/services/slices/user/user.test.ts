@@ -1,14 +1,20 @@
-import { UserState } from "@slices";
-import { TUser } from "@utils-types";
-import reducer, { fetchUser, loginUser, logoutUser, registerUser, updateUser } from "./user";
-import { TLoginData, TRegisterData } from "@api";
+import { UserState } from '@slices';
+import { TUser } from '@utils-types';
+import reducer, {
+  fetchUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+  updateUser
+} from './user';
+import { TLoginData, TRegisterData } from '@api';
 
 describe('Тесты редьюсеров слайса user', () => {
   const userMock: TUser = {
     email: 'user@gmail.com',
     name: 'testuser'
   };
-  
+
   const authResponseMock = {
     success: true,
     accessToken: 'accessToken',
@@ -93,10 +99,7 @@ describe('Тесты редьюсеров слайса user', () => {
   });
 
   test('fetchUser.pending', () => {
-    const nextState = reducer(
-      initialState,
-      fetchUser.pending('pending')
-    );
+    const nextState = reducer(initialState, fetchUser.pending('pending'));
 
     expect(nextState.isAuthenticated).toBe(false);
   });
@@ -134,7 +137,9 @@ describe('Тесты редьюсеров слайса user', () => {
 
     const nextState = reducer(
       stateWithUser,
-      updateUser.fulfilled({ success: true, user: updatedUser }, 'fulfilled', { name: 'username1' })
+      updateUser.fulfilled({ success: true, user: updatedUser }, 'fulfilled', {
+        name: 'username1'
+      })
     );
 
     expect(nextState.user).toEqual(updatedUser);
@@ -147,10 +152,7 @@ describe('Тесты редьюсеров слайса user', () => {
       isAuthenticated: true
     };
 
-    const nextState = reducer(
-      stateWithUser,
-      logoutUser.pending('pending')
-    );
+    const nextState = reducer(stateWithUser, logoutUser.pending('pending'));
 
     expect(nextState.isAuthenticated).toBe(false);
   });

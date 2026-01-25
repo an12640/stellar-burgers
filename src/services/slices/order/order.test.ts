@@ -1,5 +1,11 @@
-import { TOrder } from "@utils-types";
-import { getFeeds, getOrderByNumber, getOrders, orderSlice, OrderState } from "./order";
+import { TOrder } from '@utils-types';
+import {
+  getFeeds,
+  getOrderByNumber,
+  getOrders,
+  orderSlice,
+  OrderState
+} from './order';
 import { TOrderResponse } from '@api';
 
 describe('Тесты редьюсеров слайса заказов', () => {
@@ -9,7 +15,7 @@ describe('Тесты редьюсеров слайса заказов', () => {
     totalToday: 0,
     currentOrder: null
   };
-  
+
   const orderMock: TOrder = {
     _id: '696ced5ea64177001b327cc5',
     status: 'done',
@@ -21,7 +27,7 @@ describe('Тесты редьюсеров слайса заказов', () => {
       '643d69a5c3f7b9001cfa093d', // bun
       '643d69a5c3f7b9001cfa0947', // main
       '643d69a5c3f7b9001cfa0945', // sauce
-      '643d69a5c3f7b9001cfa093d'  // bun (вторая)
+      '643d69a5c3f7b9001cfa093d' // bun (вторая)
     ]
   };
   const ordersMock: TOrder[] = [
@@ -75,7 +81,10 @@ describe('Тесты редьюсеров слайса заказов', () => {
       totalToday: 3
     };
 
-    const nextState = orderSlice.reducer(initialState, getFeeds.fulfilled(feeds, 'fulfilled'));
+    const nextState = orderSlice.reducer(
+      initialState,
+      getFeeds.fulfilled(feeds, 'fulfilled')
+    );
     expect(nextState.currentOrder).toBe(null);
     expect(nextState.orders).toEqual(ordersMock);
     expect(nextState.total).toBe(12345);
@@ -83,7 +92,10 @@ describe('Тесты редьюсеров слайса заказов', () => {
   });
 
   test('Получение заказов пользователя', () => {
-    const nextState = orderSlice.reducer(initialState, getOrders.fulfilled(ordersMock, 'fulfilled'));
+    const nextState = orderSlice.reducer(
+      initialState,
+      getOrders.fulfilled(ordersMock, 'fulfilled')
+    );
     expect(nextState.currentOrder).toBe(null);
     expect(nextState.orders).toEqual(ordersMock);
     expect(nextState.total).toBe(0);
@@ -91,16 +103,18 @@ describe('Тесты редьюсеров слайса заказов', () => {
   });
 
   test('Получение информации о заказе', () => {
-     const orderInfo: TOrderResponse = {
+    const orderInfo: TOrderResponse = {
       success: true,
       orders: [orderMock]
     };
 
-    const nextState = orderSlice.reducer(initialState, getOrderByNumber.fulfilled(orderInfo, 'fulfilled', 1));
+    const nextState = orderSlice.reducer(
+      initialState,
+      getOrderByNumber.fulfilled(orderInfo, 'fulfilled', 1)
+    );
     expect(nextState.currentOrder).toBe(orderMock);
     expect(nextState.orders).toEqual([]);
     expect(nextState.total).toBe(0);
     expect(nextState.totalToday).toBe(0);
   });
-
 });

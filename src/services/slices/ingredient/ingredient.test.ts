@@ -1,12 +1,12 @@
-import { fetchIngredients, ingredientSlice, IngredientState } from "@slices";
-import { TIngredient } from "@utils-types";
+import { fetchIngredients, ingredientSlice, IngredientState } from '@slices';
+import { TIngredient } from '@utils-types';
 
 describe('Тесты редьюсеров слайса ингредиентов', () => {
   const initialState: IngredientState = {
     ingredients: [],
     isIngredientsLoading: false
   };
-    
+
   const bun: TIngredient = {
     _id: '643d69a5c3f7b9001cfa093c',
     name: 'Краторная булка N-200igogo',
@@ -49,23 +49,31 @@ describe('Тесты редьюсеров слайса ингредиентов'
     image_large: 'https://code.s3.yandex.net/react/code/sauce-02-large.png'
   };
 
-  test('Ожидание загрузки ингредиентов' , () => {
-    const nextState = ingredientSlice.reducer(initialState, fetchIngredients.pending('pending'));
+  test('Ожидание загрузки ингредиентов', () => {
+    const nextState = ingredientSlice.reducer(
+      initialState,
+      fetchIngredients.pending('pending')
+    );
     expect(nextState.ingredients).toEqual([]);
     expect(nextState.isIngredientsLoading).toBe(true);
   });
 
-  test('Отклонение загрузки ингредиентов' , () => {
-    const nextState = ingredientSlice.reducer(initialState, fetchIngredients.rejected(null, 'rejected'));
+  test('Отклонение загрузки ингредиентов', () => {
+    const nextState = ingredientSlice.reducer(
+      initialState,
+      fetchIngredients.rejected(null, 'rejected')
+    );
     expect(nextState.ingredients).toEqual([]);
     expect(nextState.isIngredientsLoading).toBe(false);
   });
 
-  test('Успешная загрузка ингредиентов' , () => {
+  test('Успешная загрузка ингредиентов', () => {
     const testIngredients = [bun, mainIngredient, sauceIngredient];
-    const nextState = ingredientSlice.reducer(initialState, fetchIngredients.fulfilled(testIngredients, 'fulfilled'));
+    const nextState = ingredientSlice.reducer(
+      initialState,
+      fetchIngredients.fulfilled(testIngredients, 'fulfilled')
+    );
     expect(nextState.ingredients).toEqual(testIngredients);
     expect(nextState.isIngredientsLoading).toBe(false);
   });
-
 });

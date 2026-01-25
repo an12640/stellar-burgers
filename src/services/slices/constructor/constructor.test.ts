@@ -1,5 +1,11 @@
-import { TIngredient } from "@utils-types";
-import reducer, { addIngredient, ConstructorState, deleteIngredient, moveDownIngredient, moveUpIngredient } from "./constructor";
+import { TIngredient } from '@utils-types';
+import reducer, {
+  addIngredient,
+  ConstructorState,
+  deleteIngredient,
+  moveDownIngredient,
+  moveUpIngredient
+} from './constructor';
 
 describe('Тесты редьюсеров слайса конструктора', () => {
   const initialState: ConstructorState = {
@@ -58,7 +64,7 @@ describe('Тесты редьюсеров слайса конструктора'
   const stateWithIngredients: ConstructorState = {
     constructorItems: {
       bun: {
-        id: 'id1', 
+        id: 'id1',
         ...bun
       },
       ingredients: [
@@ -82,7 +88,9 @@ describe('Тесты редьюсеров слайса конструктора'
     const nextState = reducer(initialState, addIngredient(mainIngredient));
     expect(nextState.constructorItems.bun).toEqual(null);
     expect(nextState.constructorItems.ingredients).toHaveLength(1);
-    expect(nextState.constructorItems.ingredients[0]).toMatchObject(mainIngredient);
+    expect(nextState.constructorItems.ingredients[0]).toMatchObject(
+      mainIngredient
+    );
   });
 
   test('Добавление булки)', () => {
@@ -105,11 +113,15 @@ describe('Тесты редьюсеров слайса конструктора'
 
   test('Изменение порядка ингредиентов в начинке', () => {
     const nextState = reducer(stateWithIngredients, moveUpIngredient('id3'));
-    expect(nextState.constructorItems.ingredients.map(i => i.id))
-      .toEqual(['id3', 'id2']);
+    expect(nextState.constructorItems.ingredients.map((i) => i.id)).toEqual([
+      'id3',
+      'id2'
+    ]);
 
     const nextState2 = reducer(stateWithIngredients, moveDownIngredient('id2'));
-    expect(nextState2.constructorItems.ingredients.map(i => i.id))
-      .toEqual(['id3', 'id2']);
+    expect(nextState2.constructorItems.ingredients.map((i) => i.id)).toEqual([
+      'id3',
+      'id2'
+    ]);
   });
 });

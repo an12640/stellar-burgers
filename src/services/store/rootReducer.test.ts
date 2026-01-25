@@ -1,22 +1,21 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { constructorSlice, ingredientSlice, orderSlice, userSlice } from "@slices";
-import { rootReducer } from "@store";
+import { combineReducers } from '@reduxjs/toolkit';
+import {
+  constructorSlice,
+  ingredientSlice,
+  orderSlice,
+  userSlice
+} from '@slices';
+import { rootReducer } from '@store';
 
 describe('Тестирование rootReducer', () => {
   test('RootReducer инициирован undefined состоянием, unknown action', () => {
-    const initialState = rootReducer(undefined, {type: 'UNKNOWN_ACTION'});
-    expect(initialState.ingredient).toEqual(
-      ingredientSlice.getInitialState()
-    );
+    const initialState = rootReducer(undefined, { type: 'UNKNOWN_ACTION' });
+    expect(initialState.ingredient).toEqual(ingredientSlice.getInitialState());
     expect(initialState.constructorItems).toEqual(
       constructorSlice.getInitialState()
     );
-    expect(initialState.order).toEqual(
-      orderSlice.getInitialState()
-    );
-    expect(initialState.user).toEqual(
-      userSlice.getInitialState()
-    );
+    expect(initialState.order).toEqual(orderSlice.getInitialState());
+    expect(initialState.user).toEqual(userSlice.getInitialState());
   });
 
   test('RootReducer инициирован состоянием, unknown action', () => {
@@ -75,7 +74,7 @@ describe('Тестирование rootReducer', () => {
       }
     };
 
-    const nextState = rootReducer(rootState, {type: 'UNKNOWN_ACTION'});
+    const nextState = rootReducer(rootState, { type: 'UNKNOWN_ACTION' });
     expect(nextState).toEqual(rootState);
-  })
+  });
 });
